@@ -1770,16 +1770,14 @@ header h1{letter-spacing:-.01em;}
     var T=TOOLS[tool];
     ctx.save();
     ctx.translate(PIVOT.x,PIVOT.y); ctx.rotate(s.a*Math.PI/180); ctx.translate(-PIVOT.x,-PIVOT.y);
-    // the motor on top with its cooling fins, the head casting, the quill feed lever and the quill
-    mBox(ctx,284,30,32,8,'#9A9C97');
-    mBox(ctx,276,38,48,36,'#65675F');
-    ctx.strokeStyle='rgba(43,41,36,.55)'; ctx.lineWidth=1.5; ctx.beginPath();
-    for(var fy=45;fy<72;fy+=6){ ctx.moveTo(278,fy); ctx.lineTo(322,fy); } ctx.stroke();
-    ctx.strokeStyle='#2B2924'; ctx.lineWidth=5; ctx.lineCap='round'; ctx.beginPath(); ctx.moveTo(334,124); ctx.lineTo(358,106); ctx.stroke(); ctx.lineCap='butt';
-    ctx.fillStyle='#2E4A63'; ctx.beginPath(); ctx.arc(360,104,6.5,0,Math.PI*2); ctx.fill(); ctx.lineWidth=2; ctx.stroke();
-    mBox(ctx,266,74,68,72,'#3E4C37'); mHi(ctx,268,76,64,5,0.14);
-    ctx.fillStyle='#2E4A63'; ctx.fillRect(274,124,30,14); ctx.lineWidth=1.5; ctx.strokeRect(274,124,30,14);
-    mBolt(ctx,272,80); mBolt(ctx,328,80); mBolt(ctx,328,140);
+    // the print and cut carriage: the shoe that rides the rail, the white carriage with four ink cartridges,
+    // the blue band with its status light, and the blade holder below
+    mBox(ctx,272,30,56,10,'#9A9C97');
+    mBox(ctx,262,40,76,106,'#E4E9EE'); mHi(ctx,264,42,72,5,0.5);
+    ['#3FA7C9','#C94F8E','#E8C547','#2B2924'].forEach(function(col,k){ mBox(ctx,268+k*17,50,13,36,col); mHi(ctx,270+k*17,52,3,32,0.3); });
+    ctx.fillStyle='#2E4A63'; ctx.fillRect(262,96,76,12); ctx.strokeStyle='#2B2924'; ctx.lineWidth=1.5; ctx.strokeRect(262,96,76,12);
+    ctx.fillStyle=demo.on?'#57694B':'#B4B5AF'; ctx.beginPath(); ctx.arc(326,124,5,0,Math.PI*2); ctx.fill(); ctx.stroke();
+    mBolt(ctx,270,124); mBolt(ctx,270,138);
     mBox(ctx,284,146,32,58,'#9A9C97'); mHi(ctx,288,147,6,56,0.35);
     ctx.fillStyle='#2B2924'; ctx.fillRect(292,204,16,12);
     ctx.fillStyle=crashT>0?'#A84A2A':'#2B2924';
@@ -1891,26 +1889,34 @@ header h1{letter-spacing:-.01em;}
     }
     ctx.lineJoin='round';
     if(G.homeCnc) drawCncShell();
-    // base casting on its feet, the column with its dark back edge, the ram across the top
-    mBox(ctx,40,438,400,34,'#65675F'); mHi(ctx,42,440,396,5,0.14);
-    mBox(ctx,70,40,80,400,'#57694B');
-    ctx.fillStyle='#3E4C37'; ctx.fillRect(71,41,15,398);
-    mHi(ctx,92,44,6,392,0.13);
-    ctx.fillStyle='#2E4A63'; ctx.fillRect(100,150,40,26); ctx.strokeStyle='#2B2924'; ctx.lineWidth=1.5; ctx.strokeRect(100,150,40,26);
-    mBolt(ctx,105,155); mBolt(ctx,135,155); mBolt(ctx,105,171); mBolt(ctx,135,171);
-    mBox(ctx,150,98,56,10,'#3E4C37');
-    mBox(ctx,150,62,158,36,'#57694B'); mHi(ctx,152,64,154,5,0.16);
-    mBolt(ctx,160,80); mBolt(ctx,196,80);
+    // the plotter stand on its feet, the media roll across the back, the long carriage beam with its two end caps
+    mBox(ctx,40,438,520,34,'#9A9C97'); mHi(ctx,42,440,516,5,0.3);
+    mBox(ctx,70,190,16,248,'#65675F'); mBox(ctx,514,190,16,248,'#65675F');
+    mBox(ctx,96,22,408,26,'#F2EEE3');
+    ctx.strokeStyle='rgba(43,41,36,.35)'; ctx.lineWidth=1.5; ctx.beginPath(); ctx.moveTo(98,30); ctx.lineTo(502,30); ctx.moveTo(98,40); ctx.lineTo(502,40); ctx.stroke();
+    mBox(ctx,86,26,10,18,'#65675F'); mBox(ctx,504,26,10,18,'#65675F');
+    mBox(ctx,56,48,488,58,'#E4E9EE'); mHi(ctx,58,50,484,5,0.5);
+    ctx.fillStyle='#2B2924'; ctx.fillRect(150,92,300,4);
+    mBox(ctx,56,48,94,150,'#C6C8C2'); mHi(ctx,58,50,6,146,0.3);
+    mBox(ctx,450,48,94,150,'#C6C8C2'); mHi(ctx,452,50,6,146,0.3);
+    mBox(ctx,66,62,74,46,'#2E4A63');
+    ctx.fillStyle='#B4C4D1'; ctx.fillRect(72,68,62,24); ctx.strokeStyle='#2B2924'; ctx.lineWidth=1.5; ctx.strokeRect(72,68,62,24);
+    ctx.fillStyle='#2B2924'; ctx.font='bold 11px Trebuchet MS, Segoe UI, Roboto, Helvetica, Arial, sans-serif'; ctx.fillText(demo.on?'CUTTING':'READY',78,84);
+    [['#57694B',80],['#B5760D',100],['#A84A2A',120]].forEach(function(q){ ctx.fillStyle=q[0]; ctx.beginPath(); ctx.arc(q[1],100,4,0,Math.PI*2); ctx.fill(); ctx.stroke(); });
+    ['#3FA7C9','#C94F8E','#E8C547','#2B2924'].forEach(function(col,k){ mBox(ctx,462+k*19,62,14,46,col); });
+    ctx.fillStyle='#65675F'; ctx.font='bold 12px Trebuchet MS, Segoe UI, Roboto, Helvetica, Arial, sans-serif'; ctx.fillText('PRINT + CUT',458,130);
+    mBox(ctx,462,140,70,10,'#9A9C97');
 
     var ks=kneeShift(), tx=s.x*XS, i;
-    // the knee rides its elevating screw; it slides down behind the base as the knee drops
+    // the media lift rides its screw under the platen, sliding down behind the stand as it drops
     var kTop=270+ks, kh=Math.max(34,Math.min(110,438-kTop));
     if(kTop+kh<436){
       mBox(ctx,133,kTop+kh,24,438-(kTop+kh),'#C6C8C2');
       ctx.strokeStyle='rgba(43,41,36,.6)'; ctx.lineWidth=1.5; ctx.beginPath();
       for(var sy=kTop+kh+5;sy<436;sy+=6){ ctx.moveTo(133,sy); ctx.lineTo(157,sy+3); } ctx.stroke();
     }
-    mBox(ctx,95,kTop,100,kh,'#9A9C97'); mHi(ctx,97,kTop+14,5,kh-16,0.3);
+    mBox(ctx,95,kTop,100,kh,'#C6C8C2'); mHi(ctx,97,kTop+14,5,kh-16,0.3);
+    ctx.strokeStyle='rgba(43,41,36,.5)'; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(99,kTop+4); ctx.lineTo(191,kTop+kh-4); ctx.moveTo(191,kTop+4); ctx.lineTo(99,kTop+kh-4); ctx.stroke();
     mBox(ctx,90,272+ks,240,20,'#65675F'); mHi(ctx,92,274+ks,236,4,0.14);
 
     var tTop=TABLE_TOP+ks;
@@ -1958,7 +1964,7 @@ header h1{letter-spacing:-.01em;}
 
     var c;
     for(i=0;i<chips.length;i++){c=chips[i];
-      ctx.globalAlpha=Math.max(0,Math.min(1,c.life/26)); ctx.fillStyle='#8C6A2F'; ctx.fillRect(c.x,c.y,2.4,2.4);}
+      ctx.globalAlpha=Math.max(0,Math.min(1,c.life/26)); ctx.fillStyle='#B4C4D1'; ctx.fillRect(c.x,c.y,2.4,2.4);}
     for(i=0;i<sparks.length;i++){c=sparks[i];
       ctx.globalAlpha=Math.max(0,Math.min(1,c.life/16)); ctx.fillStyle='#E0912B'; ctx.fillRect(c.x,c.y,3,3);}
     ctx.globalAlpha=1;
